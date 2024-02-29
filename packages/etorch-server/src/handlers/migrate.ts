@@ -131,6 +131,7 @@ router.get('/oecd/cli/:refAreaCode/:startPeriod/:endPeriod', async ctx => {
       freq,
       ...ctx.params
     })
+    console.log(data)
     const result = await importDataToOecd(data)
     ctx.body = result
   } catch (error) {

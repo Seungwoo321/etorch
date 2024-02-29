@@ -1,4 +1,6 @@
 const { oecd, Oecd } = require('@etorch/shared-utils')
+const moment = require('moment')
+
 async function oecdDownload(options) {
   try {
     const { refAreaCode, startPeriod, endPeriod, upload, latest, next } = options
@@ -39,18 +41,20 @@ async function findNextPeriod (options) {
   if (data === null) {
     throw new Error('Not found!')
   }
-  const [year, month] = data.get('time_period').split('-').map(v => parseInt(v))
-  const next = [month === 12 ? year + 1 : year, month === 12 ? '01' : (month < 10 ? '0': '') + (month + 1) ].join('-')
-  return [next, next]
+  const dateString = data.get('time_period')
+  let dateObj = moment(dateString, ["YYYY-MM"], true);
+  if (dateObj.isValid()) {
+    dateObj = dateObj.add(1, 'M').format('YYYY-MM')
+    return [dateObj, dateObj]
+  } else {
+    console.log("Invalid date format");
+    return null
+  }
 }
 
 async function insertData (data) {
   try {
     const rows = data.map(convertRow)
-    if (!rows.length) {
-      console.log(data)
-      return
-    }
     const fn = rows.map(row => Oecd.findOrCreate({
       where: {
         ref_area: row.ref_area,

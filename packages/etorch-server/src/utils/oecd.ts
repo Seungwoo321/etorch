@@ -1,7 +1,5 @@
 import { oecd, Oecd } from '@etorch/shared-utils'
 
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
 const getPeriodDate = ({ freq, startPeriod, endPeriod }) => {
   if (freq !== 'Monthly') return []
   const startYear = startPeriod.substring(0, 4)
@@ -29,21 +27,13 @@ export async function fetchDataAndInsertMonthlyFromOecd ({
   startPeriod,
   endPeriod
 }) {
+  const periodOptions = getPeriodDate({ freq, startPeriod, endPeriod })
+  const fn = periodOptions.map(([startPeriodOption, endPeriodOption]) => oecd.getIndicatorData(`https://sdmx.oecd.org/public/rest/data/OECD.SDD.STES,DSD_STES@DF_CLI,4.0/${refAreaCode.toLowerCase()}.M.LI...AA...H?startPeriod=${startPeriodOption}&endPeriod=${endPeriodOption}&dimensionAtObservation=AllDimensions&detail=DataOnly&format=jsondata`))
   try {
-    const delayTime = 1000
-    let values = []
-    const periodOptions = getPeriodDate({ freq, startPeriod, endPeriod })
-    for (let i = 0; i < periodOptions.length; i ++ ) {
-      const [startPeriodOption, endPeriodOption] = periodOptions[i]
-      const dataUrl = `https://sdmx.oecd.org/public/rest/data/OECD.SDD.STES,DSD_STES@DF_CLI,4.0/${refAreaCode.toLowerCase()}.M.LI...AA...H?startPeriod=${startPeriodOption}&endPeriod=${endPeriodOption}&dimensionAtObservation=AllDimensions&detail=DataOnly&format=jsondata`
-      const data = await oecd.getIndicatorData(dataUrl)
-      console.log(startPeriodOption, endPeriodOption, data.length)
-      values = values.concat(data.map(value => ({ ...value, refAreaCode })))
-      if (i < periodOptions.length) {
-        await delay(delayTime);
-      }
-    }
-    return values
+    const values = await Promise.all(fn)
+    return values.reduce((acc, cur) => {
+      return acc.concat(cur.map((v => ({ ...v, refAreaCode }))))
+    }, [])
   } catch (error) {
     console.log(new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }), error.message)
     // throw error
@@ -66,19 +56,16 @@ const convertRow = row => ({
 })
 
 export async function importDataToOecd (data) {
+  if (!data) throw new Error('No data')
   try {
     const rows = data.map(convertRow)
-    if (!rows.length) {
-      console.log(data)
-      return
-    }
     return await Oecd.bulkCreate(
       rows,
       { validate: true }
     )
   } catch (error) {
     console.log(new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }), error.message)
-    // throw error
+    throw error
   }
 }
 
@@ -93,6 +80,6 @@ export async function countDataFromOecd (freq, refAreaCode) {
     if (count > 0) throw new Error(`[Warning] oecd rows: ${count}`)
   } catch (error) {
     console.log(new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }), error.message)
-    // throw error
+    throw error
   }
 }
