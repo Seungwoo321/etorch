@@ -52,7 +52,7 @@ export async function fetchDataAndInsertMonthlyFromOecd ({
 
 const convertRow = row => ({
   ref_area: row.REF_AREA,
-  ref_area_code: row.refAreaCode.toLowercase(),
+  ref_area_code: row.refAreaCode.toLowerCase(),
   value: row.value,
   freq: row.FREQ,
   measure: row.MEASURE,
