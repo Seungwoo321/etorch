@@ -7,7 +7,7 @@ async function oecdDownload(options) {
       lastPeriod = await findNextPeriod(options)
       console.log('lastPeriod', lastPeriod)
     }
-    const dataUrl = `https://sdmx.oecd.org/public/rest/data/OECD.SDD.STES,DSD_STES@DF_CLI,4.0/${refAreaCode.toLowerCase()}.M.LI...AA...H?startPeriod=${lastPeriod[0]}&endPeriod=${lastPeriod[0]}&dimensionAtObservation=AllDimensions&detail=DataOnly&format=jsondata`
+    const dataUrl = `https://sdmx.oecd.org/public/rest/data/OECD.SDD.STES,DSD_STES@DF_CLI,4.0/${refAreaCode.toLowerCase()}.M.LI...AA...H?startPeriod=${lastPeriod[0]}&endPeriod=${lastPeriod[1]}&dimensionAtObservation=AllDimensions&detail=DataOnly&format=jsondata`
     const responseData = await oecd.getIndicatorData(dataUrl.toString())
     const rows = responseData.map(value => ({ ...value, refAreaCode }))
     if (latest) {
@@ -47,7 +47,6 @@ async function findNextPeriod (options) {
 async function insertData (data) {
   try {
     const rows = data.map(convertRow)
-    console.log(rows)
     if (!rows.length) {
       console.log(data)
       return
