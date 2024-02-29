@@ -18,6 +18,7 @@ async function ecosDownload(options) {
       searchStartDate: lastPeriod[0],
       searchEndDate: lastPeriod[1]
     })
+    if (responseData.CODE) throw new Error(`${responseData.CODE}: ${responseData.MESSAGE}`)
     const rows = responseData.map(value => ({ ...value, period }))
     if (latest) {
       console.log('latest')
@@ -53,31 +54,29 @@ async function findNextPeriod (options) {
   if (data === null) {
     console.log('Not found!')
     return null
-  } else {
-    const dateString = data.get('time').replace('Q', '')
-    const period = options.period
-    let dateObj = moment(dateString, ["YYYY", "YYYYMM", "YYYYQ", "YYYYMMDD"], true);
-    if (dateObj.isValid()) {
-      if (period === 'Q') {
-          dateObj = dateObj.add(1, 'Q').format('YYYYQ').toString();
-          dateObj = dateObj.substring(0, 4) + 'Q' + dateObj.substring(4, 5)
-      } else if (period === 'M') {
-          dateObj = dateObj.add(1, 'M').format('YYYYMM');
-      } else if (period === 'D') {
-          dateObj = dateObj.add(1, 'd').format('YYYYMMDD');
-      } else {
-          dateObj = dateObj.add(1, 'y').format('YYYY');
-      }
-      return [dateObj, dateObj]
+  } 
+  const dateString = data.get('time').replace('Q', '')
+  const period = options.period
+  let dateObj = moment(dateString, ["YYYY", "YYYYMM", "YYYYQ", "YYYYMMDD"], true);
+  if (dateObj.isValid()) {
+    if (period === 'Q') {
+        dateObj = dateObj.add(1, 'Q').format('YYYYQ').toString();
+        dateObj = dateObj.substring(0, 4) + 'Q' + dateObj.substring(4, 5)
+    } else if (period === 'M') {
+        dateObj = dateObj.add(1, 'M').format('YYYYMM');
+    } else if (period === 'D') {
+        dateObj = dateObj.add(1, 'd').format('YYYYMMDD');
     } else {
-      console.log("Invalid date format");
-      return null
+        dateObj = dateObj.add(1, 'y').format('YYYY');
     }
+    return [dateObj, dateObj]
+  } else {
+    console.log("Invalid date format");
+    return null
   }
 }
 
 async function insertData (data) {
-  if (data.CODE) throw new Error(`${data.CODE}: ${data.MESSAGE}`)
   try {
     const rows = data.filter(value => !value.err).map(convertRow)
     const fn = rows.map(row => Ecos.findOrCreate({

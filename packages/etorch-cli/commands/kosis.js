@@ -1,19 +1,30 @@
 const GeneratorAPI = require('../util/GeneratorAPI')
 const { kosis, Kosis } = require('@etorch/shared-utils')
+const moment = require('moment')
+
 async function kosisDownload(options) {
   try {
     const generator = new GeneratorAPI()
     const apiKey = await generator.getData('kosis')
     const fn = options.dateRange ? kosis.getIndicatorData : kosis.getIndicatorLatestData
+    const { latest, upload, next, startPrdDe, endPrdDe } = options
+    let lastPeriod = [startPrdDe, endPrdDe]
+    if (next) {
+      lastPeriod = await findNextPeriod(options)
+      console.log('lastPeriod', lastPeriod)
+    }
     const rows = await fn({
       apiKey,
-      ...options
+      ...options,
+      startPrdDe: lastPeriod[0],
+      endPrdDe: lastPeriod[1]
     })
-    if (options.latest) {
+    if (rows.err) throw new Error(`${rows.err}: ${rows.errMsg}`)
+    if (latest) {
       console.log('latest')
       rows.splice(0, rows.length - 1)
     }
-    if (options.upload) {
+    if (upload) {
       console.log('upload')
       const result = await insertData(rows)
       console.log(result)
@@ -25,8 +36,50 @@ async function kosisDownload(options) {
     // throw error
   }
 }
+
+async function findNextPeriod (options) {
+  const data = await Kosis.findOne({
+    where: {
+        tbl_id: options.tblId,
+        itm_id: options.itmId,
+        org_id: options.orgId,
+        prd_se: options.prdSe,
+        c1: options.objL1,
+        c2: options.c2 ?? null,
+        c3: options.c3 ?? null,
+        c4: options.c4 ?? null,
+        c5: options.c5 ?? null,
+        c6: options.c6 ?? null,
+        c7: options.c7 ?? null,
+        c8: options.c8 ?? null
+    },
+    order: [
+      ['prd_de', 'DESC']
+    ]
+  })
+  if (data === null) {
+    console.log('Not found!')
+    return null
+  }
+  const prdSe = options.prdSe
+  const dateString = data.get('prd_de')
+  let dateObj = moment(dateString, ["YYYY", "YYYYMM", "YYYY0Q", "YYYYMMDD"], true);
+  if (dateObj.isValid()) {
+    if (prdSe === 'M') {
+      dateObj = dateObj.add(1, 'M').format('YYYYMM')
+    } else if (prdSe == 'Q') {
+      dateObj = dateObj.add(1, 'Q').format('YYYY0Q')
+    } else {
+      dateObj = dateObj.add(1, 'Y').format('YYYY')
+    }
+    return [dateObj, dateObj]
+  } else {
+    console.log("Invalid date format");
+    return null
+  }
+}
+
 async function insertData (data) {
-  if (data.CODE) throw new Error(`${data.CODE}: ${data.MESSAGE}`)
   try {
     const rows = data.map(convertRow)
     const fn = rows.map(row => Kosis.findOrCreate({

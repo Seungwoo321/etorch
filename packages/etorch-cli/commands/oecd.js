@@ -39,11 +39,10 @@ async function findNextPeriod (options) {
   if (data === null) {
     console.log('Not found!')
     return null
-  } else {
-    const [year, month] = data.get('time_period').split('-').map(v => parseInt(v))
-    const next = [month === 12 ? year + 1 : year, month === 12 ? '01' : (month < 10 ? '0': '') + (month + 1) ].join('-')
-    return [next, next]
   }
+  const [year, month] = data.get('time_period').split('-').map(v => parseInt(v))
+  const next = [month === 12 ? year + 1 : year, month === 12 ? '01' : (month < 10 ? '0': '') + (month + 1) ].join('-')
+  return [next, next]
 }
 
 async function insertData (data) {
