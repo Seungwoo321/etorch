@@ -33,7 +33,7 @@ router.get('/kosis/annual/:startPrdDe/:endPrdDe', async ctx => {
   }
 })
 
-router.get('/kosis/quarterly/:startPreDe/:endPreDe', async ctx => {
+router.get('/kosis/quarterly/:startPrdDe/:endPrdDe', async ctx => {
   const prdSe = 'Q'
   try {
     await countDataFromKosis(prdSe)
