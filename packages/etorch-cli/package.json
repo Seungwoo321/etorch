@@ -1,0 +1,41 @@
+{
+  "name": "@etorch/cli",
+  "version": "1.0.0",
+  "description": "",
+  "bin": {
+    "eidc": "bin/eidc.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Seungwoo321/eidc.git"
+  },
+  "engines": {
+    "node": ">=16.14.0"
+  },
+  "keywords": [],
+  "author": "Seungwoo, Lee <seungwoo321@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Seungwoo321/eidc/issues"
+  },
+  "homepage": "https://github.com/Seungwoo321/eidc#readme",
+  "devDependencies": {
+    "@types/node": "^20.11.22",
+    "@types/sequelize": "^4.28.20",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^12.0.0",
+    "dotenv": "^16.4.5",
+    "eidl": "^1.1.0",
+    "fs-extra": "^11.2.0",
+    "mariadb": "^3.2.3",
+    "semver": "^7.6.0",
+    "sequelize": "^6.37.1"
+  }
+}

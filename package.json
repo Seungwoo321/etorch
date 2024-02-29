@@ -1,0 +1,14 @@
+{
+  "name": "etorch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-cli": "pnpm -F @etorch/cli build",
+    "dev-server": "pnpm -F @etorch/server dev"
+  },
+  "keywords": [],
+  "author": "Seungwoo, Lee <seungwoo321@gmail.com>",
+  "license": "ISC"
+}
