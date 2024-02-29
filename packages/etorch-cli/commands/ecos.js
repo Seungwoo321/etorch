@@ -52,8 +52,7 @@ async function findNextPeriod (options) {
     ]
   })
   if (data === null) {
-    console.log('Not found!')
-    return null
+    throw new Error('Not found!')
   } 
   const dateString = data.get('time').replace('Q', '')
   const period = options.period

@@ -58,8 +58,7 @@ async function findNextPeriod (options) {
     ]
   })
   if (data === null) {
-    console.log('Not found!')
-    return null
+    throw new Error('Not found!')
   }
   const prdSe = options.prdSe
   const dateString = data.get('prd_de')
