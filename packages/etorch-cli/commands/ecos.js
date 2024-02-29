@@ -1,14 +1,23 @@
 const GeneratorAPI = require('../util/GeneratorAPI')
 const { ecos, Ecos } = require('@etorch/shared-utils')
+const moment = require('moment')
+
 async function ecosDownload(options) {
   try {
     const generator = new GeneratorAPI()
     const apiKey = await generator.getData('ecos')
+    const { period, latest, upload, next, searchStartDate, searchEndDate } = options
+    let lastPeriod = [searchStartDate, searchEndDate]
+    if (next) {
+      lastPeriod = await findNextPeriod(options)
+      console.log('lastPeriod', lastPeriod)
+    }
     const responseData = await ecos.getIndicatorData({
       apiKey,
-      ...options
+      ...options,
+      searchStartDate: lastPeriod[0],
+      searchEndDate: lastPeriod[1]
     })
-    const { period, latest, upload } = options
     const rows = responseData.map(value => ({ ...value, period }))
     if (latest) {
       console.log('latest')
@@ -22,10 +31,50 @@ async function ecosDownload(options) {
       console.log(rows)
     }
   } catch (error) {
-    console.log(error.message)
-    throw error
+    console.log(new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }), error.message)
+    // throw error
   }
 }
+
+async function findNextPeriod (options) {
+  const data = await Ecos.findOne({
+    where: {
+      stat_code: options.statCode,
+      period: options.period,
+      item_code1: options.itemCode1,
+      item_code2: options.itemCode2 || null,
+      item_code3: options.itemCode3 || null,
+      item_code4: options.itemCode4 || null
+    },
+    order: [
+      ['time', 'DESC']
+    ]
+  })
+  if (data === null) {
+    console.log('Not found!')
+    return null
+  } else {
+    const dateString = data.get('time')
+    const period = options.period
+    let dateObj = moment(dateString, ["YYYY", "YYYYMM", "YYYYQ", "YYYYMMDD"], true);
+    if (dateObj.isValid()) {
+      if (period === 'Q') {
+          dateObj = dateObj.add(1, 'Q').format('YYYYQ');
+      } else if (period === 'M') {
+          dateObj = dateObj.add(1, 'M').format('YYYYMM');
+      } else if (period === 'D') {
+          dateObj = dateObj.add(1, 'd').format('YYYYMMDD');
+      } else {
+          dateObj = dateObj.add(1, 'y').format('YYYY');
+      }
+      return [dateObj, dateObj]
+    } else {
+      console.log("Invalid date format");
+      return null
+    }
+  }
+}
+
 async function insertData (data) {
   if (data.CODE) throw new Error(`${data.CODE}: ${data.MESSAGE}`)
   try {
@@ -53,8 +102,8 @@ async function insertData (data) {
       return 'FAILED: Exist Data To Ecos'
     }
   } catch (error) {
-    console.log(error.message)
-    throw error
+    console.log(new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }), error.message)
+    // throw error
   }
 }
 const convertRow = row => ({

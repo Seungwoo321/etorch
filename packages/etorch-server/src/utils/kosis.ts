@@ -43,8 +43,8 @@ export async function fetchDataAndInsertByAnnualFromKosis({
       return acc.concat(cur)
     }, [])
   } catch (error) {
-    console.log(error.message)
-    throw error
+    console.log(new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }), error.message)
+    // throw error
   }
 }
 
@@ -80,8 +80,8 @@ export async function fetchDataAndInsertByMonthlyAndQuarterlyFromKosis({
     }
     return values
   } catch (error) {
-    console.log(error.message)
-    throw error
+    console.log(new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }), error.message)
+    // throw error
   }
 }
 
@@ -147,8 +147,8 @@ export async function importDataToKosis (data) {
       { validate: true }
     )
   } catch (error) {
-    console.log(error.message)
-    throw error
+    console.log(new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }), error.message)
+    // throw error
   }
 }
 
@@ -161,7 +161,7 @@ export async function countDataFromKosis (prdSe) {
     })
     if (count > 0) throw new Error(`[Warning] kosis rows: ${count}`)
   } catch (error) {
-    console.log(error.message)
-    throw error
+    console.log(new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }), error.message)
+    // throw error
   } 
 }

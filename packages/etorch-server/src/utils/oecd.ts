@@ -45,8 +45,8 @@ export async function fetchDataAndInsertMonthlyFromOecd ({
     }
     return values
   } catch (error) {
-    console.log(error.message)
-    throw error
+    console.log(new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }), error.message)
+    // throw error
   }
 }
 
@@ -77,8 +77,8 @@ export async function importDataToOecd (data) {
       { validate: true }
     )
   } catch (error) {
-    console.log(error.message)
-    throw error
+    console.log(new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }), error.message)
+    // throw error
   }
 }
 
@@ -92,7 +92,7 @@ export async function countDataFromOecd (freq, refAreaCode) {
     })
     if (count > 0) throw new Error(`[Warning] oecd rows: ${count}`)
   } catch (error) {
-    console.log(error.message)
-    throw error
+    console.log(new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }), error.message)
+    // throw error
   }
 }

@@ -1,8 +1,13 @@
 const { oecd, Oecd } = require('@etorch/shared-utils')
 async function oecdDownload(options) {
   try {
-    const { refAreaCode, startPeriod, endPeriod, upload, latest } = options
-    const dataUrl = `https://sdmx.oecd.org/public/rest/data/OECD.SDD.STES,DSD_STES@DF_CLI,4.0/${refAreaCode.toLowerCase()}.M.LI...AA...H?startPeriod=${startPeriod}&endPeriod=${endPeriod}&dimensionAtObservation=AllDimensions&detail=DataOnly&format=jsondata`
+    const { refAreaCode, startPeriod, endPeriod, upload, latest, next } = options
+    let lastPeriod = [startPeriod, endPeriod]
+    if (next) {
+      lastPeriod = await findNextPeriod(options)
+      console.log('lastPeriod', lastPeriod)
+    }
+    const dataUrl = `https://sdmx.oecd.org/public/rest/data/OECD.SDD.STES,DSD_STES@DF_CLI,4.0/${refAreaCode.toLowerCase()}.M.LI...AA...H?startPeriod=${lastPeriod[0]}&endPeriod=${lastPeriod[0]}&dimensionAtObservation=AllDimensions&detail=DataOnly&format=jsondata`
     const responseData = await oecd.getIndicatorData(dataUrl.toString())
     const rows = responseData.map(value => ({ ...value, refAreaCode }))
     if (latest) {
@@ -17,8 +22,27 @@ async function oecdDownload(options) {
       console.log(rows)
     }
   } catch (error) {
-    console.log(error.message)
-    throw error
+    console.log(new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }), error.message)
+    // throw error
+  }
+}
+
+async function findNextPeriod (options) {
+  const data = await Oecd.findOne({
+    where: {
+      ref_area_code: options.refAreaCode
+    },
+    order: [
+      ['time_period', 'DESC']
+    ]
+  })
+  if (data === null) {
+    console.log('Not found!')
+    return null
+  } else {
+    const [year, month] = data.get('time_period').split('-').map(v => parseInt(v))
+    const next = [month === 12 ? year + 1 : year, month === 12 ? '01' : (month < 10 ? '0': '') + (month + 1) ].join('-')
+    return [next, next]
   }
 }
 
@@ -56,8 +80,8 @@ async function insertData (data) {
       return 'FAILED: Exist Data To Oecd'
     }
   } catch (error) {
-    console.log(error.message)
-    throw error
+    console.log(new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }), error.message)
+    // throw error
   }
 }
 

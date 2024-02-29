@@ -47,8 +47,8 @@ export async function fetchDataAndInsertByAnnualFromEcos ({
       return acc.concat(cur)
     }, [])
   } catch (error) {
-    console.log(error.message)
-    throw error
+    console.log(new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }), error.message)
+    // throw error
   }
 }
 
@@ -85,8 +85,8 @@ export async function fetchDataAndInsertByDailyAndMonthlyAndQuarterlyFromEcos ({
     }
     return values
   } catch (error) {
-    console.log(error.message)
-    throw error
+    console.log(new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }), error.message)
+    // throw error
   }
 }
 
@@ -118,8 +118,8 @@ export async function importDataToEcos (data) {
       { validate: true }
     )
   } catch (error) {
-    console.log(error.message)
-    throw error
+    console.log(new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }), error.message)
+    // throw error
   }
 }
 
@@ -132,7 +132,7 @@ export async function countDataFromEcos (period) {
     })
     if (count > 0) throw new Error(`[Warning] ecos rows: ${count}`)
   } catch (error) {
-    console.log(error.message)
-    throw error
+    console.log(new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }), error.message)
+    // throw error
   } 
 }

@@ -21,8 +21,8 @@ async function kosisDownload(options) {
       console.log(rows)
     }
   } catch (error) {
-    console.log(error.message)
-    throw error
+    console.log(new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }), error.message)
+    // throw error
   }
 }
 async function insertData (data) {
