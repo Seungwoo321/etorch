@@ -35,7 +35,7 @@ export async function fetchDataAndInsertMonthlyFromOecd ({
     const periodOptions = getPeriodDate({ freq, startPeriod, endPeriod })
     for (let i = 0; i < periodOptions.length; i ++ ) {
       const [startPeriodOption, endPeriodOption] = periodOptions[i]
-      const dataUrl = `https://sdmx.oecd.org/public/rest/data/OECD.SDD.STES,DSD_STES@DF_CLI,4.0/${refAreaCode.toLowercase()}.M.LI...AA...H?startPeriod=${startPeriodOption}&endPeriod=${endPeriodOption}&dimensionAtObservation=AllDimensions&detail=DataOnly&format=jsondata`
+      const dataUrl = `https://sdmx.oecd.org/public/rest/data/OECD.SDD.STES,DSD_STES@DF_CLI,4.0/${refAreaCode.toLowerCase()}.M.LI...AA...H?startPeriod=${startPeriodOption}&endPeriod=${endPeriodOption}&dimensionAtObservation=AllDimensions&detail=DataOnly&format=jsondata`
       const data = await oecd.getIndicatorData(dataUrl)
       console.log(startPeriodOption, endPeriodOption, data.length)
       values = values.concat(data.map(value => ({ ...value, refAreaCode })))
