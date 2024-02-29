@@ -2,21 +2,21 @@ import { DataTypes, Model, InferAttributes, InferCreationAttributes } from 'sequ
 import { options } from '../db'
 
 export class Ecos extends Model<InferAttributes<Ecos>, InferCreationAttributes<Ecos>> {
-  stat_code: string;
-  stat_name: string;
-  item_code1: string;
-  item_name1: string;
-  item_code2: string;
-  item_name2: string;
-  item_code3: string;
-  item_name3: string;
-  item_code4: string;
-  item_name4: string;
-  unit_name: string;
-  wgt: string;
-  time: string;
-  data_value: string;
-  period: string;
+  declare stat_code: string;
+  declare stat_name: string;
+  declare item_code1: string;
+  declare item_name1: string;
+  declare item_code2: string;
+  declare item_name2: string;
+  declare item_code3: string;
+  declare item_name3: string;
+  declare item_code4: string;
+  declare item_name4: string;
+  declare unit_name: string;
+  declare wgt: string;
+  declare time: string;
+  declare data_value: string;
+  declare period: string;
 }
 
 Ecos.init({

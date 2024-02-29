@@ -2,18 +2,18 @@ import { DataTypes, Model, InferAttributes, InferCreationAttributes } from 'sequ
 import { options } from '../db'
 
 export class Oecd extends Model<InferAttributes<Oecd>, InferCreationAttributes<Oecd>> {
-  ref_area: string;
-  ref_area_code: string;
-  value: string;
-  freq: string;
-  measure: string;
-  unit_measure: string;
-  activity: string;
-  adjustment: string;
-  transformation: string;
-  time_horiz: string;
-  methodology: string;
-  time_period: string;
+  declare ref_area: string;
+  declare ref_area_code: string;
+  declare value: string;
+  declare freq: string;
+  declare measure: string;
+  declare unit_measure: string;
+  declare activity: string;
+  declare adjustment: string;
+  declare transformation: string;
+  declare time_horiz: string;
+  declare methodology: string;
+  declare time_period: string;
 }
 
 Oecd.init({

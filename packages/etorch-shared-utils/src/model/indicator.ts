@@ -2,15 +2,15 @@ import { DataTypes, Model, InferAttributes, InferCreationAttributes } from 'sequ
 import { options } from '../db'
 
 export class Indicator extends Model<InferAttributes<Indicator>, InferCreationAttributes<Indicator>> {
-  id: number;
-  name_ko: string;
-  name_en: string;
-  description_ko: string;
-  description_en: string;
-  source: string;
-  unit_ko: string;
-  unit_en: string;
-  time_unit: string;
+  declare id: number;
+  declare name_ko: string;
+  declare name_en: string;
+  declare description_ko: string;
+  declare description_en: string;
+  declare source: string;
+  declare unit_ko: string;
+  declare unit_en: string;
+  declare time_unit: string;
 }
 
 Indicator.init({
