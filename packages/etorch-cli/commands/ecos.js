@@ -54,12 +54,13 @@ async function findNextPeriod (options) {
     console.log('Not found!')
     return null
   } else {
-    const dateString = data.get('time')
+    const dateString = data.get('time').replace('Q', '')
     const period = options.period
     let dateObj = moment(dateString, ["YYYY", "YYYYMM", "YYYYQ", "YYYYMMDD"], true);
     if (dateObj.isValid()) {
       if (period === 'Q') {
-          dateObj = dateObj.add(1, 'Q').format('YYYYQ');
+          dateObj = dateObj.add(1, 'Q').format('YYYYQ').toString();
+          dateObj = dateObj.substring(0, 4) + 'Q' + dateObj.substring(4, 5)
       } else if (period === 'M') {
           dateObj = dateObj.add(1, 'M').format('YYYYMM');
       } else if (period === 'D') {
