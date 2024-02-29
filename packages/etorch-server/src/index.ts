@@ -1,8 +1,7 @@
-import 'dotenv/config'
 import app from './app'
 import http from 'http'
 
-import './model'
+import '@etorch/shared-utils'
 
 const PORT = process.env.PORT || '3000'
 const server = http.createServer(app.callback())

@@ -1,0 +1,33 @@
+{
+  "name": "@etorch/shared-utils",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./lib/index.mjs",
+      "require": "./lib/index.cjs"
+    }
+  },
+  "types": "./lib/index.d.ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "unbuild"
+  },
+  "keywords": [],
+  "author": "Seungwoo, Lee <seungwoo321@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "eidl": "^1.1.0",
+    "mariadb": "^3.2.3",
+    "sequelize": "^6.37.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.22",
+    "@types/sequelize": "^4.28.20",
+    "typescript": "^5.3.3",
+    "unbuild": "^2.0.0"
+  }
+}

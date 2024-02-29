@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-require('dotenv').config()
 const chalk = require('chalk')
 const semver = require('semver')
 const requiredVersion = require('../package.json').engines.node
 // const minimist = require('minimist')
+
+process.env.EIDC_CLI=true
 
 function checkNodeVersion(wanted, id) {
     if (!semver.satisfies(process.version, wanted, { includePrerelease: true })) {

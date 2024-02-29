@@ -1,5 +1,4 @@
-import { Kosis } from '../model'
-import { kosis } from 'eidl'
+import { kosis, Kosis } from '@etorch/shared-utils'
 import kosisConfig from '../config/kosis'
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));

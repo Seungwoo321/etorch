@@ -1,3 +1,12 @@
+import { resolve } from 'path'
+import * as dotenv from 'dotenv'
+
+export function init () {
+  dotenv.config({ path: resolve(__dirname, '../.env')})
+}
+
+init()
+
 const env = {
   get(key) {
     return process.env[key]
@@ -13,11 +22,11 @@ const env = {
   }
 }
 
-
 export const config = {
   MARIADB_HOST: env.get('MARIADB_HOST'),
   MARIADB_DATABASE: env.get('MARIADB_DATABASE'),
   MARIADB_USERNAME: env.get('MARIADB_USERNAME'),
   MARIADB_PASSWORD: env.get('MARIADB_PASSWORD'),
-  MARIADB_PORT: env.get('MARIADB_PORT')
+  MARIADB_PORT: env.get('MARIADB_PORT'),
+  EIDC_CLI: env.get('EIDC_CLI')
 }

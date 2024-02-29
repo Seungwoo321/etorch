@@ -1,6 +1,5 @@
 const GeneratorAPI = require('../util/GeneratorAPI')
-const { ecos } = require('eidl')
-const { Ecos } = require('../model')
+const { ecos, Ecos } = require('@etorch/shared-utils')
 async function ecosDownload(options) {
   try {
     const generator = new GeneratorAPI()

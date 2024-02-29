@@ -25,17 +25,13 @@
   "homepage": "https://github.com/Seungwoo321/eidc#readme",
   "devDependencies": {
     "@types/node": "^20.11.22",
-    "@types/sequelize": "^4.28.20",
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@etorch/shared-utils": "workspace:^",
     "chalk": "^4.1.2",
     "commander": "^12.0.0",
-    "dotenv": "^16.4.5",
-    "eidl": "^1.1.0",
     "fs-extra": "^11.2.0",
-    "mariadb": "^3.2.3",
-    "semver": "^7.6.0",
-    "sequelize": "^6.37.1"
+    "semver": "^7.6.0"
   }
 }

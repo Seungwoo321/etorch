@@ -1,5 +1,4 @@
-import { Ecos } from '../model';
-import { ecos } from 'eidl'
+import { Ecos, ecos } from '@etorch/shared-utils'
 import EcosConfig from '../config/ecos'
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));

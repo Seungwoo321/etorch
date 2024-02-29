@@ -1,6 +1,5 @@
 const GeneratorAPI = require('../util/GeneratorAPI')
-const { kosis } = require('eidl')
-const { Kosis } = require('../model')
+const { kosis, Kosis } = require('@etorch/shared-utils')
 async function kosisDownload(options) {
   try {
     const generator = new GeneratorAPI()

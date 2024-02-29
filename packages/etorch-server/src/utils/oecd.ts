@@ -1,5 +1,4 @@
-import { Oecd } from '../model'
-import { oecd } from 'eidl'
+import { oecd, Oecd } from '@etorch/shared-utils'
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 

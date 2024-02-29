@@ -1,5 +1,4 @@
-const { oecd } = require('eidl')
-const { Oecd } = require('../model')
+const { oecd, Oecd } = require('@etorch/shared-utils')
 async function oecdDownload(options) {
   try {
     const { refAreaCode, startPeriod, endPeriod, upload, latest } = options
