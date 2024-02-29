@@ -28,5 +28,6 @@ export const config = {
   MARIADB_USERNAME: env.get('MARIADB_USERNAME'),
   MARIADB_PASSWORD: env.get('MARIADB_PASSWORD'),
   MARIADB_PORT: env.get('MARIADB_PORT'),
-  EIDC_CLI: env.get('EIDC_CLI')
+  EIDC_CLI: env.get('EIDC_CLI'),
+  ENVIRONMENT: env.get('ENVIRONMENT')
 }

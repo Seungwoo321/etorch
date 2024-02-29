@@ -2,7 +2,7 @@ import { sequelize } from '../db';
 import { config } from '../config'
 
 (async () => {
-  if (config.EIDC_CLI === 'true') return
+  if (config.EIDC_CLI === 'true' || config.ENVIRONMENT === 'production') return
   try {
     await sequelize.sync({ force: true });
     console.log('SUCCESS')
