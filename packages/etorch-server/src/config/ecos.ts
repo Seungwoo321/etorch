@@ -137,7 +137,7 @@ const Bond_Yield_10yr = {
   itemCode1: '5050000',
 }
 /** 회사채수익률 (AA-) */
-const C_Bond_Yield_AA_ = {
+const C_Bond_Yield_AA_MINUS = {
   statCode: '721Y001',
   itemCode1: '7020000',
 }
@@ -244,7 +244,7 @@ const config = {
     Bond_Yield_1yr,
     Bond_Yield_3yr,
     Bond_Yield_10yr,
-    C_Bond_Yield_AA_,
+    C_Bond_Yield_AA_MINUS,
     GDPD_B2015,
     GDPD_B2015_CR,
     NGDP_KRW,
@@ -255,7 +255,7 @@ const config = {
     Bond_Yield_1yr,
     Bond_Yield_3yr,
     Bond_Yield_10yr,
-    C_Bond_Yield_AA_,
+    C_Bond_Yield_AA_MINUS,
     BOK_RATE,
     KRW_USD_M,
     KRW_CNY_M,
@@ -277,7 +277,7 @@ const config = {
     Bond_Yield_1yr,
     Bond_Yield_3yr,
     Bond_Yield_10yr,
-    C_Bond_Yield_AA_,
+    C_Bond_Yield_AA_MINUS,
     NGDP_SA,
     RGDP_SA,
     NGDP_V,

@@ -26,7 +26,7 @@ GDP 디플레이터(2015=100) 등락률(%)|GDPD_B2015_CR|A|
 시장금리 국고채 (1년)           |Bond_Yield_1yr|D,M,Q,A|
 시장금리 국고채 (3년)           |Bond_Yield_3yr|D,M,Q,A|
 시장금리 국고채 (10년)          |Bond_Yield_10yr|D,M,Q,A|
-회사채수익률 (AA-)              |C_Bond_Yield_AA_|D,M,Q,A|
+회사채수익률 (AA-)              |C_Bond_Yield_AA_MINUS|D,M,Q,A|
 한국은행 기준금리               |BOK_RATE|M,D|
 국내총생산(GDP)(계절조정, 명목) |NGDP_SA|Q|
 국내총생산(GDP)(계절조정, 실질) |RGDP_SA|Q|
