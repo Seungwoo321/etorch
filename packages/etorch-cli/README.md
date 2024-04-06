@@ -104,7 +104,7 @@ eidc kosis --orgId "343" --tblId "DT_343_2010_S0029" --itmId "13103792816T1" --o
 # 월별 소비자 물가 등락률 전년동월비 (%)
 eidc kosis --orgId "101" --tblId "DT_1J22042" --itmId "T03" --objL1 "0" --latest-date
 
-# KOSPI_MarketCap
+# KOSPI_MARKET_CAP
 eidc kosis --orgId "343" --tblId "DT_343_2010_S0013" --itmId "13103792750T1" --objL1 "13102792750A.05" --latest-date
 ```
 
@@ -398,7 +398,7 @@ eidc ecos --statCode "111Y004" --itemCode1 "LA00000" --period "M" --searchStartD
 선행종합지수 | LCI|
 코스피 지수 | KOSPI|
 월별 소비자 물가 등락률 전년 동월비 (%) | CPI_YoY|
-코스피 시가총액 | KOSPI_MarketCap |
+코스피 시가총액 | KOSPI_MARKET_CAP |
 경제 성장률(GDP)(실질, 계절조정, 전기비) | RGDP_QoQ_SA|
 경제 성장률(GDP)(실질, 원계열, 전년동기비) | RGDP_YoY |
 GDP 디플레이터 등락률 (원계열, 전년동기비) | GDP_D_YoY |

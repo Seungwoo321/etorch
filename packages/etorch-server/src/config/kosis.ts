@@ -43,7 +43,7 @@ const CPI_CR_YoY = {
 }
 
 /** 코스피 시가총액 */
-const KOSPI_MarketCap = {
+const KOSPI_MARKET_CAP = {
   orgId: '343',
   tblId: 'DT_343_2010_S0013',
   itmId: '13103792750T1',
@@ -136,7 +136,7 @@ const config = {
     LCI,
     KOSPI,
     CPI_CR_YoY,
-    KOSPI_MarketCap
+    KOSPI_MARKET_CAP
   ],
   quarterly: [
     RGDP_QoQ_SA,

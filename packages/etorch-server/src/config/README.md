@@ -9,7 +9,7 @@
 선행종합지수 | LCI|M|
 코스피 지수 | KOSPI|M|
 월별 소비자 물가 등락률 전년동월비(%) | CPI_CR_YoY|M|
-코스피 시가총액 | KOSPI_MarketCap |M|
+코스피 시가총액 | KOSPI_MARKET_CAP |M|
 경제성장률(GDP)(실질, 계절조정, 전기비) | RGDP_QoQ_SA|Q|
 경제성장률(GDP)(실질, 원계열, 전년동기비) | RGDP_YoY_V |Q|
 GDP 디플레이터 등락률(원계열, 전년동기비) | GDPD_CR_YoY_V |Q|
