@@ -2,7 +2,8 @@ import { resolve } from 'path'
 import * as dotenv from 'dotenv'
 
 export function init () {
-  dotenv.config({ path: resolve(__dirname, '../.env')})
+  console.log(1)
+  dotenv.config({ path: resolve(__dirname, '../.env.production')})
 }
 
 init()

@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "ts-node-dev --respawn src/index.ts",
+    "dev:rds": "ts-node-dev --respawn src/index.ts --env-file .env.production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

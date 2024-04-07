@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-cli": "pnpm -F @etorch/cli build",
     "build-shared-utils": "pnpm -F @etorch/shared-utils build",
-    "dev-server": "pnpm -F @etorch/server dev"
+    "dev-server": "pnpm -F @etorch/server dev",
+    "dev-server:rds": "pnpm -F @etorch/server dev:rds"
   },
   "keywords": [],
   "author": "Seungwoo, Lee <seungwoo321@gmail.com>",
