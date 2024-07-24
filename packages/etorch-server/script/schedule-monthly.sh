@@ -27,7 +27,7 @@ eidc kosis --orgId "343" --tblId "DT_343_2010_S0029" --itmId "13103792816T1" --o
 # 월별 소비자 물가 등락률 전년동월비 (%)
 eidc kosis --orgId "101" --tblId "DT_1J22042" --itmId "T03" --objL1 "0" --upload --next
 
-# KOSPI_MARKET_CAP
+# KOSPI_MarketCap
 eidc kosis --orgId "343" --tblId "DT_343_2010_S0013" --itmId "13103792750T1" --objL1 "13102792750A.05" --upload --next
 
 # ECOS
